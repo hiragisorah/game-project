@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\window">
-      <UniqueIdentifier>{db6038a4-1c01-4065-9e09-6a9ca91feec3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\graphics">
-      <UniqueIdentifier>{54c69d6a-bef5-4f00-b5fb-75a0e62af218}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="renderer.h">
@@ -27,14 +21,8 @@
     <ClInclude Include="window.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="simple-window.h">
-      <Filter>ヘッダー ファイル\window</Filter>
-    </ClInclude>
     <ClInclude Include="graphics.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="directx11.h">
-      <Filter>ヘッダー ファイル\graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

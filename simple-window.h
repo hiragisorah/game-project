@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "window.h"
+#include "graphics\window.h"
 
 class SimpleWindow : public Window
 {

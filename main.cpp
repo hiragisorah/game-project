@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "framework\scene-manager.h"
-#include "graphics\graphics.h"
-#include "graphics\simple-window.h"
+#include "simple-window.h"
+#include "directx11.h"
 #include "test-scene.h"
 
 #pragma comment(lib, "framework.lib")
@@ -21,11 +21,13 @@ int __stdcall WinMain(HINSTANCE, HINSTANCE, char*, int)
 
 	SceneManager scene_manager;
 	SimpleWindow window("test", 1280U, 720U);
+	DirectX11 graphics(&window);
 
-	scene_manager.SetScene<TestScene>();
+	scene_manager.Initalize<TestScene>();
 	window.Initialize();
+	graphics.Initialize();
 
-	while (scene_manager.Run() && window.Run());
+	while (scene_manager.Run() && window.Run() && graphics.Run());
 
 	return 0;
 }

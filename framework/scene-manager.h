@@ -25,6 +25,10 @@ public:
 	const std::weak_ptr<Scene> current_scene(void) const;
 	const std::weak_ptr<Scene> next_scene(void) const;
 
+	template<class _Scene, class ... Args> void Initalize(const Args &... args)
+	{
+		this->next_scene_ = std::make_shared<_Scene>(args ...);
+	}
 	template<class _Scene, class ... Args> void SetScene(const Args &... args)
 	{
 		this->next_scene_ = std::make_shared<_Scene>(args ...);

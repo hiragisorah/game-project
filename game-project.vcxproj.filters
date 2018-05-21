@@ -13,9 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ヘッダー ファイル\window">
+      <UniqueIdentifier>{02a04fe8-0862-4bdc-b5d9-d5c06d85112e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\graphics">
+      <UniqueIdentifier>{96c91802-dabc-4445-9341-3d845ddb4b4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="directx11.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,6 +40,12 @@
     </ClInclude>
     <ClInclude Include="test-component.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="simple-window.h">
+      <Filter>ヘッダー ファイル\window</Filter>
+    </ClInclude>
+    <ClInclude Include="directx11.h">
+      <Filter>ヘッダー ファイル\graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

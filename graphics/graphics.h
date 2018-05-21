@@ -6,6 +6,12 @@
 
 #include "renderer.h"
 
+enum FRAME_RATE
+{
+	FRAME_RATE_UNLIMITED,
+	FRAME_RATE_LIMITED
+};
+
 class Graphics
 {
 public:
@@ -25,16 +31,19 @@ public:
 	virtual void Clear(void) = 0;
 	virtual void Present(void) = 0;
 
+	virtual void SetupBackBuffer(void) = 0;
+	virtual void SetupDeffered(void) = 0;
+	virtual void SetupShadowMap(void) = 0;
+
 private:
 	std::unordered_map<DRAW_MODE, std::vector<std::weak_ptr<Renderer>>> renderer_list_;
 
 public:
 	void AddRenderer(const std::shared_ptr<Renderer> & renderer);
-	void Rendering(void);
+	bool Run(void);
 
 public:
 	virtual void Rendering(const std::weak_ptr<Renderer> & renderer) = 0;
-
 
 public:
 	// singleton
