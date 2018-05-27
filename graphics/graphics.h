@@ -35,6 +35,9 @@ public:
 	virtual void SetupDeffered(void) = 0;
 	virtual void SetupShadowMap(void) = 0;
 
+	virtual void Setup2D(void) = 0;
+	virtual void Setup3D(void) = 0;
+
 private:
 	std::unordered_map<DRAW_MODE, std::vector<std::weak_ptr<Renderer>>> renderer_list_;
 
@@ -48,7 +51,11 @@ public:
 public:
 	// singleton
 	static Graphics & __cdecl Get(void);
-
+	template<class _Graphics> static _Graphics * __cdecl Get(void)
+	{
+		return static_cast<_Graphics*>(&Graphics::Get());
+	}
+	
 private:
 	class Impl;
 

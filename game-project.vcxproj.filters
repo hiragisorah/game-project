@@ -19,33 +19,84 @@
     <Filter Include="ヘッダー ファイル\graphics">
       <UniqueIdentifier>{96c91802-dabc-4445-9341-3d845ddb4b4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\graphics">
+      <UniqueIdentifier>{6382f21d-d5c9-4b2e-9eb4-da047720646a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\window">
+      <UniqueIdentifier>{fcfbfdad-ea9c-486e-b4a7-e3021abb0074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component">
+      <UniqueIdentifier>{fb8ee080-2968-4e5f-a3d0-6862455e86e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\entity">
+      <UniqueIdentifier>{f0a842f2-1364-45f9-bd2d-12481754cc85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene">
+      <UniqueIdentifier>{f68110d7-9830-44b3-9fdd-430470724e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\system">
+      <UniqueIdentifier>{c7c97ed5-51a0-45db-bfea-ceacdfa0e70e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\component">
+      <UniqueIdentifier>{00733d4e-b7bc-48db-8897-c295c1cb7e85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\entity">
+      <UniqueIdentifier>{3885244d-c90f-4fe9-98ea-92c28cd01817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene">
+      <UniqueIdentifier>{1c257727-764d-4d55-9cda-761d0d6284c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system">
+      <UniqueIdentifier>{b7e66c99-e6f9-4c23-aca8-d7e628303e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\resource-manager">
+      <UniqueIdentifier>{95d3a1df-fcb6-42d0-a148-785c67d30dd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\resource-manager">
+      <UniqueIdentifier>{965f23a4-d36c-4cc8-9caa-6efb076c4415}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="directx11.cpp">
+      <Filter>ソース ファイル\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="simple-window.cpp">
+      <Filter>ソース ファイル\window</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11-resource-manager.cpp">
+      <Filter>ソース ファイル\resource-manager</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXTK\WICTextureLoader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="test-scene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="test-system.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="test-entity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="test-component.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="simple-window.h">
       <Filter>ヘッダー ファイル\window</Filter>
     </ClInclude>
     <ClInclude Include="directx11.h">
       <Filter>ヘッダー ファイル\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="test-component.h">
+      <Filter>ヘッダー ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="test-entity.h">
+      <Filter>ヘッダー ファイル\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="test-scene.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="test-system.h">
+      <Filter>ヘッダー ファイル\system</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="dx11-resource-manager.h">
+      <Filter>ヘッダー ファイル\resource-manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

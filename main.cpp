@@ -3,11 +3,13 @@
 #include "framework\scene-manager.h"
 #include "simple-window.h"
 #include "directx11.h"
+#include "dx11-resource-manager.h"
 #include "test-scene.h"
+
 
 #pragma comment(lib, "framework.lib")
 #pragma comment(lib, "graphics.lib")
-
+#pragma comment(lib, "resource-manager.lib")
 
 #ifdef _DEBUG
 #define DEBUG
@@ -22,6 +24,7 @@ int __stdcall WinMain(HINSTANCE, HINSTANCE, char*, int)
 	SceneManager scene_manager;
 	SimpleWindow window("test", 1280U, 720U);
 	DirectX11 graphics(&window);
+	Dx11ResourceManager resource_manager;
 
 	scene_manager.Initalize<TestScene>();
 	window.Initialize();

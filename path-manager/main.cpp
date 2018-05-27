@@ -26,6 +26,13 @@ void ScorpEnd(void)
 	output << "}" << std::endl;
 }
 
+void ScorpEnds(void)
+{
+	indent--;
+	Indent();
+	output << "};" << std::endl;
+}
+
 void ProcessFolderRecursive(void)
 {
 	auto folders = manager.Folders();
@@ -40,11 +47,36 @@ void ProcessFolderRecursive(void)
 
 		auto files = manager.Files();
 		
-		for (auto & file : files)
+		if (manager.FileCnt() > 0)
 		{
 			Indent();
-			output << "constexpr const char * " << file.stem() << " = \"" << file.string() << "\";" << std::endl;
+			output << "constexpr const char * paths[] =" << std::endl;
+
+			ScorpStart();
+
+			for (auto & file : files)
+			{
+				Indent();
+				std::string replace = file.string();
+				std::replace(replace.begin(), replace.end(), '\\', '/');
+				output << "\"" << replace.c_str() << "\"," << std::endl;
+			}
+
+			ScorpEnds();
 		}
+
+		Indent();
+		output << "enum class PATH" << std::endl;
+
+		ScorpStart();
+
+		for (unsigned int n = 0; n < manager.FileCnt(); ++n)
+		{
+			Indent();
+			output << files[n].stem() << "," << std::endl;
+		}
+
+		ScorpEnds();
 
 		ProcessFolderRecursive();
 
@@ -58,6 +90,10 @@ int main(void)
 
 	manager.SetPath("Resource");
 
+	output << "#pragma once" << std::endl << std::endl;
+
+	output << "#pragma warning(disable: 4129)" << std::endl << std::endl;
+
 	output << "namespace Resource" << std::endl;
 	
 	ScorpStart();
@@ -67,9 +103,6 @@ int main(void)
 	ScorpEnd();
 
 	output.close();
-
-	rewind(stdin);
-	getchar();
 
 	return 0;
 }
