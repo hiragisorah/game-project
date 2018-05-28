@@ -61,7 +61,7 @@ void DirectX11::Present(void)
 
 void DirectX11::Rendering(const std::weak_ptr<Renderer>& renderer)
 {
-	auto & r = renderer.lock();
+	auto r = renderer.lock();
 	auto & rm = ResourceManager::Get();
 	auto & shader = rm.GetShader<Dx11Shader>(r->shader_);
 
@@ -78,19 +78,24 @@ void DirectX11::Rendering(const std::weak_ptr<Renderer>& renderer)
 
 	this->context_->IASetInputLayout(shader->input_layout_.Get());
 
-	unsigned int stride = 20U;
+	unsigned int stride = 32U;
 	unsigned int offset = 0;
 
 	struct InstantBuffer
 	{
 		DirectX::XMMATRIX world_;
-		DirectX::XMFLOAT2A view_port_;
+		DirectX::XMMATRIX view_;
+		DirectX::XMMATRIX projection_;
 	} cbuffer;
 
-	cbuffer.world_ = DirectX::XMMatrixIdentity();
-	cbuffer.view_port_.x = this->window_->width<float>();
-	cbuffer.view_port_.y = this->window_->height<float>();
+	static float y = 0.f;
 
+	y += .03f;
+
+	cbuffer.world_ = DirectX::XMMatrixScaling(0.1f, 0.1f, 0.1f) * DirectX::XMMatrixRotationY(y);
+	cbuffer.view_ = DirectX::XMMatrixLookAtLH(DirectX::XMVectorSet(0, 7, -7, 0), DirectX::XMVectorZero(), DirectX::XMVectorSet(0.f, 1.f, 0.f, 0.f));
+	cbuffer.projection_ = DirectX::XMMatrixPerspectiveFovLH(DirectX::XM_PIDIV4, this->window_->width<float>() / this->window_->height<float>(), 0.1f, 1000.f);
+	
 	this->context_->UpdateSubresource(shader->constant_buffer_[0].Get(), 0, nullptr, &cbuffer, 0, 0);
 
 	//このコンスタントバッファーをどのシェーダーで使うか

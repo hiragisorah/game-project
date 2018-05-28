@@ -44,8 +44,8 @@ struct Renderer
 {
 	Renderer(void)
 		: draw_mode_(DRAW_MODE_BACK_BUFFER_3D)
-		, rasterizer_state_(RASTERIZER_STATE_CW)
-		, blend_state_(BLEND_STATE_NON_PREMULTIPLIED)
+		, rasterizer_state_(RASTERIZER_STATE_CCW)
+		, blend_state_(BLEND_STATE_OPAQUE)
 		, sampler_state_(SAMPLER_STATE_POINT_WRAP)
 		, shader_(Resource::Shader::PATH::shader_3d)
 		, texture_2d_(Resource::Texture::PATH::explosion)

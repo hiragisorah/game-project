@@ -61,6 +61,7 @@ PsOut PS(VsOut input)
     PsOut output = (PsOut) 0;
 
     output.color_ = tex.Sample(own_sampler, input.uv_);
+    output.color_ = input.normal_;
 
     return output;
 }
