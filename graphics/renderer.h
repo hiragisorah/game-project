@@ -50,6 +50,7 @@ struct Renderer
 		, shader_(Resource::Shader::PATH::shader_3d)
 		, texture_2d_(Resource::Texture::PATH::explosion)
 		, model_(Resource::Model::PATH::jeep)
+		, constant_buffer_(nullptr)
 	{}
 
 	DRAW_MODE draw_mode_;
@@ -59,4 +60,5 @@ struct Renderer
 	Resource::Texture::PATH texture_2d_;
 	Resource::Shader::PATH shader_;
 	Resource::Model::PATH model_;
+	void * constant_buffer_;
 };

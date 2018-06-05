@@ -1,5 +1,9 @@
+ï»¿// directx11.cpp : Defines the exported functions for the DLL application.
+//
+
+#include "pch.h"
 #include "directx11.h"
-#include "dx11-resource-manager.h"
+#include <iostream>
 
 DirectX11::DirectX11(const Window * window)
 	: window_(window)
@@ -14,7 +18,7 @@ const ComPtr<ID3D11Device> & DirectX11::device(void)
 
 void DirectX11::Initialize(void)
 {
-	// ƒfƒoƒCƒX‚ÆƒXƒƒbƒvƒ`ƒF[ƒ“‚Ìì¬
+	// ãƒ‡ãƒã‚¤ã‚¹ã¨ã‚¹ãƒ¯ãƒƒãƒ—ãƒã‚§ãƒ¼ãƒ³ã®ä½œæˆ
 	DXGI_SWAP_CHAIN_DESC sd;
 	memset(&sd, 0, sizeof(sd));
 	sd.BufferCount = 1;
@@ -49,7 +53,7 @@ void DirectX11::Finalize(void)
 
 void DirectX11::Clear(void)
 {
-	DirectX::XMVECTOR clear_color = { .2f, .4f, .8f, 1.f};
+	DirectX::XMVECTOR clear_color = { .2f, .4f, .8f, 1.f };
 	this->context_->ClearRenderTargetView(this->back_buffer_rtv_.Get(), (float*)&clear_color);
 	this->context_->ClearDepthStencilView(this->dsv_.Get(), D3D11_CLEAR_DEPTH, 1.f, 0);
 }
@@ -61,66 +65,66 @@ void DirectX11::Present(void)
 
 void DirectX11::Rendering(const std::weak_ptr<Renderer>& renderer)
 {
-	auto r = renderer.lock();
-	auto & rm = ResourceManager::Get();
-	auto & shader = rm.GetShader<Dx11Shader>(r->shader_);
+	//auto r = renderer.lock();
+	//auto & rm = ResourceManager::Get();
+	//auto & shader = rm.GetShader<Dx11Shader>(r->shader_);
 
-	this->context_->RSSetState(this->rasterizer_states_[r->rasterizer_state_].Get());
+	//this->context_->RSSetState(this->rasterizer_states_[r->rasterizer_state_].Get());
 
-	this->context_->OMSetBlendState(this->blend_states_[r->blend_state_].Get(), nullptr, 0xffffffff);
+	//this->context_->OMSetBlendState(this->blend_states_[r->blend_state_].Get(), nullptr, 0xffffffff);
 
-	this->context_->PSSetSamplers(0, 1, this->sampler_states_[r->sampler_state_].GetAddressOf());
+	//this->context_->PSSetSamplers(0, 1, this->sampler_states_[r->sampler_state_].GetAddressOf());
 
 
-	this->context_->VSSetShader(shader->vertex_shader_.Get(), nullptr, 0);
-	this->context_->GSSetShader(shader->geometry_shader_.Get(), nullptr, 0);
-	this->context_->PSSetShader(shader->pixel_shader_.Get(), nullptr, 0);
+	//this->context_->VSSetShader(shader->vertex_shader_.Get(), nullptr, 0);
+	//this->context_->GSSetShader(shader->geometry_shader_.Get(), nullptr, 0);
+	//this->context_->PSSetShader(shader->pixel_shader_.Get(), nullptr, 0);
 
-	this->context_->IASetInputLayout(shader->input_layout_.Get());
+	//this->context_->IASetInputLayout(shader->input_layout_.Get());
 
-	unsigned int stride = 32U;
-	unsigned int offset = 0;
-	
-	this->context_->UpdateSubresource(shader->constant_buffer_[0].Get(), 0, nullptr, r->constant_buffer_, 0, 0);
+	//unsigned int stride = 32U;
+	//unsigned int offset = 0;
 
-	//‚±‚ÌƒRƒ“ƒXƒ^ƒ“ƒgƒoƒbƒtƒ@[‚ð‚Ç‚ÌƒVƒF[ƒ_[‚ÅŽg‚¤‚©
-	this->context_->VSSetConstantBuffers(0, 1, shader->constant_buffer_[0].GetAddressOf());
-	this->context_->GSSetConstantBuffers(0, 1, shader->constant_buffer_[0].GetAddressOf());
-	this->context_->PSSetConstantBuffers(0, 1, shader->constant_buffer_[0].GetAddressOf());
+	//this->context_->UpdateSubresource(shader->constant_buffer_[0].Get(), 0, nullptr, r->constant_buffer_, 0, 0);
 
-	if (r->draw_mode_ == DRAW_MODE_BACK_BUFFER_2D || r->draw_mode_ == DRAW_MODE_DEFFERED_2D)
-	{
-		auto & texture = rm.GetTexture<Dx11Texture>(r->texture_2d_);
+	////ã“ã®ã‚³ãƒ³ã‚¹ã‚¿ãƒ³ãƒˆãƒãƒƒãƒ•ã‚¡ãƒ¼ã‚’ã©ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§ä½¿ã†ã‹
+	//this->context_->VSSetConstantBuffers(0, 1, shader->constant_buffer_[0].GetAddressOf());
+	//this->context_->GSSetConstantBuffers(0, 1, shader->constant_buffer_[0].GetAddressOf());
+	//this->context_->PSSetConstantBuffers(0, 1, shader->constant_buffer_[0].GetAddressOf());
 
-		this->context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	//if (r->draw_mode_ == DRAW_MODE_BACK_BUFFER_2D || r->draw_mode_ == DRAW_MODE_DEFFERED_2D)
+	//{
+	//	auto & texture = rm.GetTexture<Dx11Texture>(r->texture_2d_);
 
-		this->context_->PSSetShaderResources(0, 1, texture->srv_.GetAddressOf());
-		this->context_->IASetVertexBuffers(0, 1, texture->vertex_buffer_.GetAddressOf(), &stride, &offset);
-		this->context_->Draw(4, 0);
-	}
-	else
-	{
-		auto & model = rm.GetModel<Dx11Model>(r->model_);
+	//	this->context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
-		this->context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//	this->context_->PSSetShaderResources(0, 1, texture->srv_.GetAddressOf());
+	//	this->context_->IASetVertexBuffers(0, 1, texture->vertex_buffer_.GetAddressOf(), &stride, &offset);
+	//	this->context_->Draw(4, 0);
+	//}
+	//else
+	//{
+	//	auto & model = rm.GetModel<Dx11Model>(r->model_);
 
-		for (auto & mesh : model->meshes_)
-		{
-			this->context_->IASetVertexBuffers(0, 1, mesh.vertex_buffer_.GetAddressOf(), &stride, &offset);
-			this->context_->IASetIndexBuffer(mesh.index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
-			this->context_->DrawIndexed(mesh.index_cnt_, 0, 0);
-		}
-	}
+	//	this->context_->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//	for (auto & mesh : model->meshes_)
+	//	{
+	//		this->context_->IASetVertexBuffers(0, 1, mesh.vertex_buffer_.GetAddressOf(), &stride, &offset);
+	//		this->context_->IASetIndexBuffer(mesh.index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
+	//		this->context_->DrawIndexed(mesh.index_cnt_, 0, 0);
+	//	}
+	//}
 }
 
 void DirectX11::CreateBackBuffer(void)
 {
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> tex_2d;
 
-	// ƒoƒbƒNƒoƒbƒtƒ@[ƒeƒNƒXƒ`ƒƒ[‚ðŽæ“¾
+	// ãƒãƒƒã‚¯ãƒãƒƒãƒ•ã‚¡ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’å–å¾—
 	this->swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&tex_2d);
 
-	// ‚»‚ÌƒeƒNƒXƒ`ƒƒ[‚É‘Î‚µƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒrƒ…[(RTV)‚ðì¬
+	// ãã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã«å¯¾ã—ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ“ãƒ¥ãƒ¼(RTV)ã‚’ä½œæˆ
 	this->device_->CreateRenderTargetView(tex_2d.Get(), nullptr, this->back_buffer_rtv_.GetAddressOf());
 }
 
@@ -128,7 +132,7 @@ void DirectX11::CreateDepthStencilView(void)
 {
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> tex_2d;
 
-	//[“xƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‚ðƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚É‚·‚éÛ‚ÌƒfƒvƒXƒXƒeƒ“ƒVƒ‹ƒrƒ…[—p‚ÌƒeƒNƒXƒ`ƒƒ[‚ðì¬
+	//æ·±åº¦ãƒžãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«ã™ã‚‹éš›ã®ãƒ‡ãƒ—ã‚¹ã‚¹ãƒ†ãƒ³ã‚·ãƒ«ãƒ“ãƒ¥ãƒ¼ç”¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‚’ä½œæˆ
 	D3D11_TEXTURE2D_DESC tex_desc = {};
 	tex_desc.Width = this->window_->width();
 	tex_desc.Height = this->window_->height();
@@ -291,7 +295,7 @@ void DirectX11::SetupShadowMap(void)
 
 void DirectX11::Setup2D(void)
 {
-	
+
 }
 
 void DirectX11::Setup3D(void)
